@@ -13,28 +13,28 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    useEffect(() => {if(token){navigate("/subscriptions")}}, [])
+    useEffect(() => {if(token){navigate("/subscriptions")}}, []);
 
     function submit(event) {
         event.preventDefault();
         
-        const login = { email, password }
+        const login = { email, password };
         const request = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/auth/login", login);
 
         request.then(response => {
             setAndPersistToken(response.data.token);
             console.log(response.data);
-            if(response.data.membership == null){
-                navigate("/subscriptions")
+            if(response.data.membership === null){
+                navigate("/subscriptions");
             }else{navigate("/home")}
-        })
-        request.catch(err => alert(err.response.data.message))
+        });
+        request.catch(err => alert(err.response.data.message));
 
     }
 
     return(
 
-        <Tela1>
+        <Container>
             <Logo src={logo} />
             <form onSubmit={submit}>
                 <Inp value={email} onChange={e => setEmail(e.target.value)} type='email' placeholder="E-mail" required/>
@@ -42,13 +42,13 @@ export default function Login() {
                 <Butt type='submit' value="ENTRAR"/>
             </form>
             <Link to={`/sign-up`}> <Cadastro>Não possuí uma conta? Cadastre-se</Cadastro> </Link>
-        </Tela1>
+        </Container>
 
     )
 
 }
 
-const Tela1 = styled.div`
+const Container = styled.div`
 
     display: flex;
     flex-direction: column;

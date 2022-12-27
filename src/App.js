@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SignUp from "./Components/SignUp";
+import Login from "./Components/Login";
+import Subs from "./Components/Subs";
+import GlobalStyle from "./styles/GlobalStyle";
+import React from "react";
+import UserContext from "./contexts/UserContext";
+
 
 function App() {
+
+  const tokenOnLocalStorage = localStorage.getItem("token");
+
+  const [token, setToken] = React.useState(tokenOnLocalStorage);
+
+  const config = {
+    headers: {
+      "Authorization": token
+    }
+  }
+
+  function setAndPersistToken(token) {
+		setToken(token);
+		localStorage.setItem("token", token);
+    
+	}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <UserContext.Provider value={{token, setToken, setAndPersistToken, config}}>
+      <BrowserRouter>
+        <GlobalStyle/>
+        <Routes>
+            <Route path="/" element={<Login/>}/>
+            <Route path="/sign-up" element={<SignUp/>}/>
+            <Route path="/subscriptions" element={<Subs/>}/>
+        </Routes>
+      </BrowserRouter>
+    </UserContext.Provider>
+
   );
 }
 

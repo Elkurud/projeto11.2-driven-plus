@@ -77,7 +77,11 @@ export default function Plano() {
         event.preventDefault();
         
         const body = {
-            membershipId: 1, cardName, cardNumber, securityNumber, expirationDate
+            membershipId: 1,
+            cardName,
+            cardNumber,
+            securityNumber,
+            expirationDate
         }
 
         const request = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions", body, config);

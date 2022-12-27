@@ -14,6 +14,7 @@ function App() {
   const tokenOnLocalStorage = localStorage.getItem("token");
 
   const [token, setToken] = React.useState(tokenOnLocalStorage);
+  const [sub, setSub] = React.useState(null)
   const config = {
       headers: {
           "Authorization": `Bearer ${token}`
@@ -28,7 +29,7 @@ function App() {
 
   return (
 
-    <UserContext.Provider value={{config, token, setToken, setAndPersistToken}}>
+    <UserContext.Provider value={{setSub, config, token, setToken, setAndPersistToken}}>
       <BrowserRouter>
         <GlobalStyle/>
         <Routes>

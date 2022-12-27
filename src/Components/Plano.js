@@ -6,7 +6,7 @@ import { useEffect, useState, useContext } from "react";
 
 export default function Plano() {
 
-    const { planoId } = useParams();
+    const { setSub } = useParams();
     const { config } = useContext(UserContext);
     const [cardName, setCardName] = useState("");
     const [cardNumber, setCardNumber] = useState("");
@@ -86,7 +86,7 @@ export default function Plano() {
 
         const request = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions", body, config);
 
-        request.then(response => {navigate("/"); console.log(response)});
+        request.then(response => {navigate("/home"); console.log(response);});
         request.catch(err => alert(err.response.data.message));
 
     }
